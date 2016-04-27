@@ -8,7 +8,7 @@ conf.read('./conf.ini')
 
 environ['PATH'] += ':{}'.format(path.dirname(path.abspath(__file__)))
 driver = webdriver.Chrome()
-driver.get('http://localhost:5000')
+driver.get('http://159.203.223.117/')
 
 for label, content in conf.items("auto"):
     driver.find_element_by_name(label).send_keys(content)
