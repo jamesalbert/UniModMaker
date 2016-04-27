@@ -10,6 +10,8 @@ def quote_lists(**kwargs):
             items = value.split(',')
             pat = '{0}' if items[0].isdigit() else '"{0}"'
             kwargs[key] = ','.join([pat.format(x.strip()) for x in items])
+        if key not in ['modname', 'encountertext']:
+            kwargs[key].replace(' ', '\\n')
     return kwargs
 
 def zip_mod(path, zip_handle):
