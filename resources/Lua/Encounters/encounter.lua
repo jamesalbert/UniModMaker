@@ -10,12 +10,12 @@ enemies = {'monster'} -- {
 -- "poseur"
 -- }
 
-enemypositions = {{enemypositions}} -- {
+enemypositions = { { {{enemypositions}} } } -- {
 -- {0, 0}
 -- }
 
 -- A custom list with attacks to choose from. Actual selection happens in EnemyDialogueEnding(). Put here in case you want to use it.
-possible_attacks = {{possible_attacks}} -- {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
+possible_attacks = { {{possible_attacks}} } -- {"bullettest_bouncy", "bullettest_chaserorb", "bullettest_touhou"}
 
 function EncounterStarting()
     -- If you want to change the game state immediately, this is the place.

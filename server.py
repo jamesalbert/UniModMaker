@@ -9,8 +9,8 @@ app.config['UPLOAD_FOLDER'] = init_conf().get('base_paths', 'mods')
 def main():
     if request.method == 'POST':
         initialize(**request.form.to_dict())
-        return send_from_directory(directory=os.path.join(current_app.root_path, 'mods'), filename='{}.zip'.format(request.form['modname']))
+        return send_from_directory(directory=os.path.join(current_app.root_path, 'mods'), filename='{0}.zip'.format(request.form['modname']))
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
