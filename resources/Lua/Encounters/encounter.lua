@@ -24,7 +24,7 @@ end
 function EnemyDialogueStarting()
     -- Good location for setting monster dialogue depending on how the battle is going.
     -- enemies[1].SetVar('currentdialogue', {"It's\nworking."})
-    enemies[1].SetVar('currentdialogue', {"{{currentdialogue}}"})
+    --enemies[1].SetVar('currentdialogue', {"{{currentdialogue}}"})
 end
 
 function EnemyDialogueEnding()

@@ -10,13 +10,14 @@ def quote_lists(**kwargs):
             items = value.split(',')
             pat = '{0}' if items[0].isdigit() else '"{0}"'
             kwargs[key] = ','.join([pat.format(x.strip()) for x in items])
-        if key not in ['modname', 'encountertext']:
-            kwargs[key].replace(' ', '\\n')
+        if key not in ['modname', 'encountertext', 'comments', 'check']:
+            kwargs[key] = kwargs[key].replace(' ', '\\n')
+	if key in ['canspare', 'cancheck']:
+            kwargs[key] = 'true' if value == 'on' else 'false'
     return kwargs
 
 def zip_mod(path, zip_handle):
     for root, dirs, files in os.walk(path):
-        print root
         for file in files:
             zip_handle.write(os.path.join(root, file))
 
