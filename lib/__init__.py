@@ -4,15 +4,15 @@ from shutil import copytree, rmtree, move
 from zipfile import ZipFile, ZIP_DEFLATED
 import os
 
-def validate(**kwargs):
+def validate(conf, **kwargs):
     for key, value in kwargs.iteritems():
-        if ',' in value:
+        if key in conf.items('separable'):
             items = value.split(',')
             pat = '{0}' if items[0].isdigit() else '"{0}"'
             kwargs[key] = ','.join([pat.format(x.strip()) for x in items])
-        if key not in ['modname', 'encountertext', 'comments', 'check']:
+        if key not in conf.items('not spaceable'):
             kwargs[key] = kwargs[key].replace(' ', '\\n')
-	if key in ['canspare', 'cancheck']:
+	if key in conf.items('radio'):
             kwargs[key] = 'true' if value == 'on' else 'false'
     return kwargs
 
@@ -39,7 +39,7 @@ def initialize(**kwargs):
         copytree(res, mod)
     except OSError:
         return False;
-    kwargs = validate(**kwargs)
+    kwargs = validate(conf, **kwargs)
     env = Environment(loader=FileSystemLoader(res), trim_blocks=True)
     for label, path in conf.items("paths"):
         with open('{0}/{1}'.format(mod, path), 'w+') as new_file:
