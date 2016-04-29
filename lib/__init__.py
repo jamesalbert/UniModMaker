@@ -10,7 +10,7 @@ def validate(**kwargs):
             items = value.split(',')
             pat = '{0}' if items[0].isdigit() else '"{0}"'
             kwargs[key] = ','.join([pat.format(x.strip()) for x in items])
-        if key not in ['modname', 'encountertext', 'comments', 'check']:
+        if key not in ['modname', 'name', 'encountertext', 'comments', 'check']:
             kwargs[key] = kwargs[key].replace(' ', '\\n')
 	if key in ['canspare', 'cancheck']:
             kwargs[key] = 'true' if value == 'on' else 'false'
