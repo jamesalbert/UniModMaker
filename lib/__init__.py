@@ -6,13 +6,13 @@ import os
 
 def validate(conf, **kwargs):
     for key, value in kwargs.iteritems():
-        if key in conf.items('separable'):
+        if key in dict(conf.items('separable')):
             items = value.split(',')
             pat = '{0}' if items[0].isdigit() else '"{0}"'
             kwargs[key] = ','.join([pat.format(x.strip()) for x in items])
-        if key not in conf.items('not spaceable'):
+        if key not in dict(conf.items('not spaceable')):
             kwargs[key] = kwargs[key].replace(' ', '\\n')
-	if key in conf.items('radio'):
+	if key in dict(conf.items('radio')):
             kwargs[key] = 'true' if value == 'on' else 'false'
     return kwargs
 
