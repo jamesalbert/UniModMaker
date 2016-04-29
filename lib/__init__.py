@@ -4,7 +4,7 @@ from shutil import copytree, rmtree, move
 from zipfile import ZipFile, ZIP_DEFLATED
 import os
 
-def quote_lists(**kwargs):
+def validate(**kwargs):
     for key, value in kwargs.iteritems():
         if ',' in value:
             items = value.split(',')
@@ -39,7 +39,7 @@ def initialize(**kwargs):
         copytree(res, mod)
     except OSError:
         return False;
-    kwargs = quote_lists(**kwargs)
+    kwargs = validate(**kwargs)
     env = Environment(loader=FileSystemLoader(res), trim_blocks=True)
     for label, path in conf.items("paths"):
         with open('{0}/{1}'.format(mod, path), 'w+') as new_file:
