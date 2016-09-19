@@ -1,324 +1,295 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>UniModMaker</title>
+    <title>Clean Blog</title>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets/demo.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets/form-basic.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='assets/font-awesome-4.6.3/css/font-awesome.css') }}">
+    <!-- Bootstrap Core CSS -->
+    <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
-  <script type="text/javascript" src="{{url_for('static', filename='jquery-2.2.3.js') }}"></script>
-  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-  <script type="text/javascript">
-  function validate() {
-    var to_return = true;
-    $('#form *').filter(':input').each(function(){
-      if ($(this).attr('name') == 'download') { return true; }
-      if ($(this).attr('name') == 'check' && !$('input[name="cancheck"]').prop('checked')) { return true; }
-      if (!$(this).val()) {
-        //alert($(this).attr('name') + " can't be empty");
-        $(this).css('border', '1px solid red');
-        $('html, body').animate({
-          scrollTop: $(this).offset().top - 50
-        }, 500);
-        to_return = false;
-        return to_return;
-      }
-      $(this).css('border', '1px solid #dbdbdb');
-    });
-    return to_return;
-  }
+    <!-- Theme CSS -->
+    <link href="{{url_for('static', filename='css/clean-blog.min.css')}}" rel="stylesheet">
 
-  $(document).ready(function() {
-    $('#dialoguepopup').popup({transition: 'all 0.3s'});
-    $('#commandspopup').popup({transition: 'all 0.3s'});
-    $('#commentspopup').popup({transition: 'all 0.3s'});
-    $('#enemynamepopup').popup({transition: 'all 0.3s'});
-    $('#randomdialoguepopup').popup({transition: 'all 0.3s'});
-    $('input[name="cancheck"]').click(function(e) {
-      $('#optional').toggle();
-    })
-  })
-  </script>
+    <!-- Custom Fonts -->
+    <link href="{{url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 
+<body>
 
-  <header>
-    <h1>UniModMaker</h1>
-        <a href="http://github.com/jamesalbert/UniModMaker", target="_blank">Github</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#">UniModMaker</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url({{url_for('static', filename='img/home-bg.jpg')}})">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Your New Mod</h1>
+                        <hr class="small">
+                        <span class="subheading">Start a New Mod Below</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!--
-    <ul>
-        <li><a href="index.html" class="active">Basic</a></li>
-        <li><a href="form-register.html">Register</a></li>
-        <li><a href="form-login.html">Login</a></li>
-        <li><a href="form-mini.html">Mini</a></li>
-        <li><a href="form-labels-on-top.html">Labels on Top</a></li>
-        <li><a href="form-validation.html">Validation</a></li>
-        <li><a href="form-search.html">Search</a></li>
-    </ul>
-    -->
-
-    <br>
-
-
-    <div class="main-content">
-
-        <!-- You only need this form and the form-basic.css -->
-
-        <form id="form" class="form-basic" method="post" onsubmit="return validate()">
-
-            <div class="form-title-row">
-                <h1>Your New Mod</h1><br>
-                <small>hint: hover over a text field for more info</small><br>
-                <small>note: use commas ONLY when separating comments</small>
-            </div>
-
-
-            <div class="form-row" title="the name of your new mod">
-                <label>
-                    <span>Mod Name</span>
-                    <input type="text" name="modname" placeholder="MyNewMod">
-                </label>
-            </div>
-
-            <div id="dialoguepopup">
-                <img src="{{ url_for('static', filename='images/dialoguewhenbattlestarts.png')}}"></img>
-            </div>
-            <div class="form-row" title="text that shows when you first start the battle">
-                <label>
-                    <span>Dialogue When Battle Starts</span>
-                    <input type="text" name="encountertext" placeholder="This monster blocks your path">
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <form id="form" method="post" onsubmit="return validate()">
+                  <div class="form-group" title="the name of your new mod">
+                    <label for="modname">Mod Name</label>
+                    <input type="text" class="form-control" id="modname" name="modname" placeholder="MyNewMod">
+                  </div>
+                  <div id="dialoguepopup" title="">
+                      <img src="{{ url_for('static', filename='img/dialoguewhenbattlestarts.png')}}"></img>
+                  </div>
+                  <div class="form-group" title="text that shows when you first start the battle">
+                    <label for="encountertext">Dialogue When Battle Starts</label>
+                    <input type="text" class="form-control" id="encountertext" name="encountertext" placeholder="This monster blocks your path">
                     <i class="fa fa-picture-o dialoguepopup_open"></i>
-                </label>
-            </div>
-
-            <div class="form-row" title="the attack the enemy will perform next">
-                <label>
-                    <span>Enemy's Next Attack</span>
-                    <input type="text" name="nextwaves" placeholder="kick">
-                </label>
-            </div>
-
-            <div class="form-row" title="how long an attack will last">
-                <label>
-                    <span>Enemy Wave Timer</span>
-                    <input type="text" name="wavetimer" placeholder="4.0">
-                </label>
-            </div>
-
-            <div class="form-row" title="the size of the box where attacks happen">
-                <label>
-                    <span>Arena Size</span>
-                    <input type="text" name="arenasize" placeholder="155, 130">
-                </label>
-            </div>
-
-            <!--
-            <div class="form-row" title="the enemy for battle">
-                <label>
-                    <span>Enemies</span>
-                    <input type="text" name="enemies" placeholder="monster">
-                </label>
-            </div>
-            -->
-
-            <div class="form-row" title="the coordinates of the enemy on screen">
-                <label>
-                    <span>Enemy Positions</span>
-                    <input type="text" name="enemypositions" placeholder="100, 0">
-                </label>
-            </div>
-
-            <div class="form-row" title="the name of the enemy's attacks">
-                <label>
-                    <span>Enemy's Possible Attacks</span>
-                    <input type="text" name="possible_attacks" placeholder="kick, hit, headbutt">
-                </label>
-            </div>
-
-            <div id="commentspopup">
-                <img src="{{ url_for('static', filename='images/enemycomments.png')}}"></img>
-            </div>
-            <div class="form-row" title="some comments the enemy will say">
-                <label>
-                    <span>Enemy's Comments</span>
-                    <input type="text" name="comments" placeholder="you're so weak, oh no..., you'll regret that">
+                  </div>
+                  <div class="form-group" title="the attack the enemy will perform next">
+                    <label for="nextwaves">Enemy's Next Attack</label>
+                    <input type="text" class="form-control" id="nextwaves" name="nextwaves" placeholder="kick">
+                  </div>
+                  <div class="form-group" title="how long an attack will last">
+                    <label for="wavetimer">Enemy Wave Timer</label>
+                    <input type="text" class="form-control" id="wavetimer" name="wavetimer" placeholder="4.0">
+                  </div>
+                  <div class="form-group" title="the size of the box where attacks happen">
+                    <label for="arenasize">Arena Size</label>
+                    <input type="text" class="form-control" id="arenasize" name="arenasize" placeholder="155, 130">
+                  </div>
+                  <div class="form-group" title="the coordinates of the enemy on screen">
+                    <label for="enemypositions">Enemy Positions</label>
+                    <input type="text" class="form-control" id="enemypositions" name="enemypositions" placeholder="100, 0">
+                  </div>
+                  <div class="form-group" title="the name of the enemy's attacks">
+                    <label for="possible_attacks">Enemy's Possible Attacks</label>
+                    <input type="text" class="form-control" id="possible_attacks" name="possible_attacks" placeholder="kick, hit, headbutt">
+                  </div>
+                  <div id="commentspopup">
+                      <img src="{{ url_for('static', filename='img/enemycomments.png')}}"></img>
+                  </div>
+                  <div class="form-group" title="some comments the enemy will say">
+                    <label for="comments">some comments the enemy will say</label>
+                    <input type="text" class="form-control" id="comments" name="comments" placeholder="you're so weak, oh no..., you'll regret that">
                     <i class="fa fa-picture-o commentspopup_open"></i>
-                </label>
-            </div>
-
-            <div id="commandspopup">
-                <img src="{{ url_for('static', filename='images/enemycommands.png')}}"></img>
-            </div>
-            <div class="form-row" title="some commands to ask of your enemy">
-                <label>
-                    <span>Enemy's Commands</span>
-                    <input type="text" name="commands" placeholder="sit, heal, lay">
+                  </div>
+                  <div id="commandspopup">
+                      <img src="{{ url_for('static', filename='img/enemycommands.png')}}"></img>
+                  </div>
+                  <div class="form-group" title="some commands to ask of your enemy">
+                    <label for="commands">Enemy's Commands</label>
+                    <input type="text" class="form-control" id="commands" name="commands" placeholder="sit, heal, lay">
                     <i class="fa fa-picture-o commandspopup_open"></i>
-                </label>
-            </div>
-
-            <div id="randomdialoguepopup">
-                <img src="{{ url_for('static', filename='images/randomdialogue.png')}}"></img>
-            </div>
-            <div class="form-row" title="random things the enemy will say">
-                <label>
-                    <span>Enemy's Random Dialogue</span>
-                    <input type="text" name="randomdialogue" placeholder="that hurt, that was weak, you're silly">
+                  </div>
+                  <div id="randomdialoguepopup">
+                      <img src="{{ url_for('static', filename='img/randomdialogue.png')}}"></img>
+                  </div>
+                  <div class="form-group" title="random things the enemy will say">
+                    <label for="randomdialogue">Enemy's Random Dialogue</label>
+                    <input type="text" class="form-control" id="randomdialogue" name="randomdialogue" placeholder="that hurt, that was weak, you're silly">
                     <i class="fa fa-picture-o randomdialoguepopup_open"></i>
-                </label>
-            </div>
-
-            <div id="enemynamepopup">
-                <img src="{{ url_for('static', filename='images/enemyname.png')}}"></img>
-            </div>
-            <div class="form-row" title="the name of the enemy">
-                <label>
-                    <span>Enemy Name</span>
-                    <input type="text" name="name" placeholder="Doge">
+                  </div>
+                  <div id="enemynamepopup">
+                      <img src="{{ url_for('static', filename='img/enemyname.png')}}"></img>
+                  </div>
+                  <div class="form-group" title="the name of the enemy">
+                    <label for="name">Enemy Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Doge">
                     <i class="fa fa-picture-o enemynamepopup_open"></i>
-                </label>
-            </div>
-
-            <div class="form-row" title="how much health the enemy will start with">
-                <label>
-                    <span>Enemy's HP</span>
-                    <input type="text" name="hp" placeholder="100">
-                </label>
-            </div>
-
-            <div class="form-row" title="the power of the enemy's attacks">
-                <label>
-                    <span>Enemy Attack Power</span>
-                    <input type="text" name="atk" placeholder="3">
-                </label>
-            </div>
-
-            <div class="form-row" title="the strength of the enemy">
-                <label>
-                    <span>Enemy Defense Power</span>
-                    <input type="text" name="defense" placeholder="4">
-                </label>
-            </div>
-
-            <div class="form-row" title="pick the enemy you wish to battle">
-                <label>
-                    <span>Enemy Sprite</span>
-                    <select name="sprite">
+                  </div>
+                  <div class="form-group" title="how much health the enemy will start with">
+                    <label for="hp">Enemy's HP</label>
+                    <input type="text" class="form-control" id="hp" name="hp" placeholder="100">
+                  </div>
+                  <div class="form-group" title="the power of the enemy's attacks">
+                    <label for="atk">Enemy Attack Power</label>
+                    <input type="text" class="form-control" id="atk" name="atk" placeholder="3">
+                  </div>
+                  <div class="form-group" title="the strength of the enemy">
+                    <label for="defense">Enemy Defense Power</label>
+                    <input type="text" class="form-control" id="defense" name="defense" placeholder="4">
+                  </div>
+                  <div class="form-group" title="pick the enemy you wish to battle">
+                    <label for="sprites">Enemy Sprite</label>
+                    <select class="form-control" id="sprites" name="sprite">
                         <option>poseur</option>
                         <option>AriDog</option>
                         <option>BernieSanders</option>
                         <option>stikbot</option>
                     </select>
-                </label>
-            </div>
+                    <br>
+                    <img id="spritepreview" src="static/sprites/poseur.png"></img>
+                  </div>
+                  <div class="form-row" title="">
+                      <label>
+                          <span></span>
 
-            <div class="form-row" title="name of the projectile the enemy will attack you with">
-                <label>
-                    <span>Projectile</span>
-                    <select name="projectile">
+                      </label>
+                  </div>
+                  <div class="form-group" title="name of the projectile the enemy will attack you with">
+                    <label for="projectile">Projectile</label>
+                    <select class="form-control" id="projectile" name="projectile">
                         <option>dogeface</option>
                     </select>
-                </label>
-            </div>
-
-            <div class="form-row" title="which side the dialogue bubble will be on (left or right)">
-                <label>
-                    <span>Enemy Dialogue Placement</span>
-                    <select name="dialoguebubble">
+                  </div>
+                  <div class="form-group" title="which side the dialogue bubble will be on (left or right)">
+                    <label for="dialoguebubble">Enemy Dialogue Placement</label>
+                    <select class="form-control" id="dialoguebubble" name="dialoguebubble">
                         <option>right</option>
                         <option>left</option>
                     </select>
-                </label>
+                  </div>
+                  <div class="form-group" title="enable sparing the enemy">
+                    <label for="canspare">Can you spare the enemy?</label>
+                    <input style="width:15px;height:15px" type="checkbox" class="form-control" id="canspare" name="canspare" checked>
+                  </div>
+                  <div class="form-group" title="enable checking the enemy">
+                    <label for="cancheck">Can you check the enemy?</label>
+                    <input style="width:15px;height:15px" type="checkbox" class="form-control" id="cancheck" name="cancheck" checked>
+                  </div>
+                  <div id="optional" class="form-group" title="what the enemy will say when you check it">
+                    <label for="check">Enemy's Check Dialogue</label>
+                    <input type="text" class="form-control" id="check" name="check" placeholder="check yourself">
+                  </div>
+                  <div class="form-group">
+                      <button name="download" type="submit">Download</button>
+                  </div>
+                </form>
+                <!--
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                            Failure is not an option
+                        </h2>
+                        <h3 class="post-subtitle">
+                            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on July 8, 2014</p>
+                </div>
+                <hr>
+                -->
+                <!-- Pager
+                <ul class="pager">
+                    <li class="next">
+                        <a href="#">Older Posts &rarr;</a>
+                    </li>
+                </ul>
+                -->
             </div>
+        </div>
+    </div>
 
-            <div class="form-row" title="enable sparing the enemy">
-                <label>
-                    <span>Can you spare the enemy?</span>
-                    <input type="checkbox" name="canspare" checked>
-                </label>
-            </div>
+    <hr>
 
-            <div class="form-row" title="enable checking the enemy">
-                <label>
-                    <span>Can you check the enemy?</span>
-                    <input type="checkbox" name="cancheck" checked>
-                </label>
-            </div>
-
-
-            <div id="optional" class="form-row" title="what the enemy will say when you check it">
-                <label>
-                    <span>Enemy's Check Dialogue</span>
-                    <input type="text" name="check" placeholder="check yourself">
-                </label>
-            </div>
-
-          <!--
-            <div class="form-row">
-                <label>
-                    <span>Dropdown</span>
-                    <select name="dropdown">
-                        <option>Option One</option>
-                        <option>Option Two</option>
-                        <option>Option Three</option>
-                        <option>Option Four</option>
-                    </select>
-                </label>
-            </div>
-
-            <div class="form-row">
-                <label>
-                    <span>Textarea</span>
-                    <textarea name="textarea"></textarea>
-                </label>
-            </div>
-
-            <div class="form-row">
-                <label><span>Radio</span></label>
-                <div class="form-radio-buttons">
-
-                    <div>
-                        <label>
-                            <input type="radio" name="radio">
-                            <span>Radio option 1</span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <label>
-                            <input type="radio" name="radio">
-                            <span>Radio option 2</span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <label>
-                            <input type="radio" name="radio">
-                            <span>Radio option 3</span>
-                        </label>
-                    </div>
-
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://github.com/jamesalbert/unimodmaker">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; jimmyjam5000.com 2016</p>
                 </div>
             </div>
+        </div>
+    </footer>
 
-          -->
-            <div class="form-row">
-                <button name="download" type="submit">Download</button>
-            </div>
+    <!-- jQuery -->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
 
-        </form>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
-    </div>
+    <!-- Contact Form JavaScript -->
+    <script src="{{url_for('static', filename='js/jqBootstrapValidation.js')}}"></script>
+    <script src="{{url_for('static', filename='js/contact_me.js')}}"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="{{url_for('static', filename='js/clean-blog.min.js')}}"></script>
+
+    <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+    <script type="text/javascript">
+    function validate() {
+      var to_return = true;
+      $('#form *').filter(':input').each(function(){
+        if ($(this).attr('name') == 'download') { return true; }
+        if ($(this).attr('name') == 'check' && !$('input[name="cancheck"]').prop('checked')) { return true; }
+        if (!$(this).val()) {
+          //alert($(this).attr('name') + " can't be empty");
+          $(this).css('border', '1px solid red');
+          $('html, body').animate({
+            scrollTop: $(this).offset().top - 50
+          }, 500);
+          to_return = false;
+          return to_return;
+        }
+        $(this).css('border', '1px solid #dbdbdb');
+      });
+      return to_return;
+    }
+
+    $(document).ready(function() {
+      $('#dialoguepopup').popup({transition: 'all 0.3s'});
+      $('#commandspopup').popup({transition: 'all 0.3s'});
+      $('#commentspopup').popup({transition: 'all 0.3s'});
+      $('#enemynamepopup').popup({transition: 'all 0.3s'});
+      $('#randomdialoguepopup').popup({transition: 'all 0.3s'});
+      $('#sprites').change(function(evt) {
+        $('#spritepreview').attr('src', 'static/sprites/'+$(evt.target).val()+'.png');
+      });
+      $('input[name="cancheck"]').click(function(e) {
+        $('#optional').toggle();
+      });
+    });
+    </script>
 
 </body>
 
